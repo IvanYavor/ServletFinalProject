@@ -1,14 +1,6 @@
 <!DOCTYPE html "http://www.w3.org/TR/html4/loose.dtd">
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.*, java.text.*" %>
-
-<%!
-    String getFormattedDate(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
-        return sdf.format(new Date());
-    }
-%>
 
 <html>
 <head>
@@ -16,16 +8,15 @@
     <title>Title</title>
 </head>
 <body>
-<h2>
-    Hello! <br/>
-    <i>Сегодня <%= getFormattedDate() %></i>
-</h2>
+<h1>Welcome page</h1>
 
 <br/>
-<a href="${pageContext.request.contextPath}/login.jsp">Please log in</a>
+<a href="${pageContext.request.contextPath}/login.jsp">Log in</a>
 <br>
-<a href="${pageContext.request.contextPath}/exception">Exception</a>
+<a href="${pageContext.request.contextPath}/registration.jsp">Registration</a>
 <br>
+<a href="${pageContext.request.contextPath}/userlist.jsp">User List</a>
+
 
 </body>
 </html>

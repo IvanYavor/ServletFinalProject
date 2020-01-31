@@ -3,8 +3,12 @@ package com.company.controller.listener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 import java.util.HashSet;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class SessionListener implements HttpSessionListener {
+    //
+    //private AtomicReference<UserDAO> dao;
+
     @Override
     public void sessionCreated(HttpSessionEvent se) {
 

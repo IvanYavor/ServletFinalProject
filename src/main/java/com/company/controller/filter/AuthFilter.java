@@ -3,7 +3,6 @@ package com.company.controller.filter;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
@@ -14,15 +13,21 @@ public class AuthFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        final HttpServletRequest request = (HttpServletRequest) servletRequest;
-        final HttpServletResponse response = (HttpServletResponse) servletResponse;
+    public void doFilter(ServletRequest request,
+                         ServletResponse response,
+                         FilterChain filterChain) throws IOException, ServletException {
 
-        HttpSession session = request.getSession();
+        final HttpServletRequest req = (HttpServletRequest) request;
+        final HttpServletResponse res = (HttpServletResponse) response;
+
+        HttpSession session = req.getSession();
         ServletContext context = request.getServletContext();
+        System.out.println(session);
+        System.out.println(session.getAttribute("role"));
+        System.out.println(context.getAttribute("loggedUsers"));
 
 
-        filterChain.doFilter(servletRequest, servletResponse);
+        filterChain.doFilter(request,response);
     }
 
     @Override

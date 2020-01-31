@@ -7,4 +7,6 @@ public class ExceptionCommand implements Command {
     public String execute(HttpServletRequest request) {
         throw new RuntimeException("Generated exception");
     }
+
+
 }

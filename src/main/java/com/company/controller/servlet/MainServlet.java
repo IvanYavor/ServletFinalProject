@@ -1,9 +1,8 @@
-package com.company.controller;
+package com.company.controller.servlet;
 
-import com.company.controller.command.Command;
-import com.company.controller.command.ExceptionCommand;
-import com.company.controller.command.LoginCommand;
-import com.company.controller.command.LogoutCommand;
+import com.company.controller.command.*;
+import com.company.model.entity.User;
+import com.company.service.UserService;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -13,21 +12,28 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
-public class Servlet extends HttpServlet {
+
+public class MainServlet extends HttpServlet {
     private Map<String, Command> commands = new HashMap<>();
+    private UserService userService = new UserService();
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-        config.getServletContext()
-                .setAttribute("loggedUsers", new HashSet<String>());
+        config.getServletContext().setAttribute("loggedUsers",
+                new HashSet<String>());
 
         commands.put("logout", new LogoutCommand());
         commands.put("login", new LoginCommand());
         commands.put("exception", new ExceptionCommand());
-    }
+        commands.put("registration", new RegistrationCommand());
 
+        List<User> users =userService.getAllUsers();
+
+        commands.put("userlist", new UserListCommand(new UserService()));
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,15 +42,15 @@ public class Servlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        processRequest(req,resp );
+        processRequest(req, resp);
     }
 
-    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String path = request.getRequestURI();
-
+    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String path = req.getRequestURI();
+        path = path.replaceFirst("/", "");
         Command command = commands.getOrDefault(path, (r) -> "/index.jsp");
-        System.out.println(command.getClass().getName());
-        String page = command.execute(request);
-        request.getRequestDispatcher(page).forward(request, response);
+        String page = command.execute(req);
+
+        req.getRequestDispatcher(page).forward(req, resp);
     }
 }
