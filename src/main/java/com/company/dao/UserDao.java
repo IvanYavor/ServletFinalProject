@@ -1,4 +1,4 @@
-package com.company;
+package com.company.dao;
 
 import com.company.dao.GenericDao;
 import com.company.model.entity.User;

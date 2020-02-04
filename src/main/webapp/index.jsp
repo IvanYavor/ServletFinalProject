@@ -11,11 +11,11 @@
 <h1>Welcome page</h1>
 
 <br/>
-<a href="${pageContext.request.contextPath}/login.jsp">Log in</a>
+<a href="${pageContext.request.contextPath}/login">Log in</a>
 <br>
-<a href="${pageContext.request.contextPath}/registration.jsp">Registration</a>
+<a href="${pageContext.request.contextPath}/registration">Registration</a>
 <br>
-<a href="${pageContext.request.contextPath}/userlist.jsp">User List</a>
+<a href="${pageContext.request.contextPath}/userlist">User List</a>
 
 
 </body>

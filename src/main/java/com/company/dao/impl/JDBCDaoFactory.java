@@ -1,6 +1,6 @@
 package com.company.dao.impl;
 
-import com.company.UserDao;
+import com.company.dao.UserDao;
 import com.company.dao.DaoFactory;
 
 import javax.sql.DataSource;

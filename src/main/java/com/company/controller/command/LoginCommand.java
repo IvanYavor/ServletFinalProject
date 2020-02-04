@@ -1,40 +1,47 @@
 package com.company.controller.command;
 
 import com.company.model.entity.User;
+import com.company.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 
 public class LoginCommand implements Command{
+    private UserService userService;
+
+    public LoginCommand(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public String execute(HttpServletRequest request) {
-        String username = request.getParameter("username");
+        String login = request.getParameter("login");
         String password = request.getParameter("password");
 
-        if( username == null || username.equals("") || password == null || password.equals("")  ){
-            //System.out.println("Not");
+        if( login == null || login.equals("") || password == null || password.equals("")  ){
+            //request.setAttribute("emptyFields", true);
             return "/login.jsp";
         }
-        System.out.println(username + " " + password);
-        //System.out.println("Yes!");
-//todo: check login with DB
 
-        if(CommandUtility.checkUserIsLogged(request, username)){
+
+        if(CommandUtility.checkUserIsLogged(request, login)){
+            CommandUtility.unlogUser(request, login);
             return "/index.jsp";
         }
 
-        if (username.equals("Admin")){
-            CommandUtility.setUserRole(request, User.ROLE.ADMIN, username);
-            return "/WEB-INF/admin/adminbasis.jsp";
-        } else if(username.equals("User")) {
-            CommandUtility.setUserRole(request, User.ROLE.USER, username);
-            return "/WEB-INF/user/userbasis.jsp";
-        } else {
-            CommandUtility.setUserRole(request, User.ROLE.UNKNOWN, username);
-            return "/login.jsp";
+        for(User user : userService.getAllUsers()) {
+            if(login.equals(user.getLogin()) && password.equals(user.getPassword()) && user.getRole() == User.ROLE.USER) {
+                CommandUtility.logUser(request, login);
+                CommandUtility.setUserRole(request, User.ROLE.USER, login);
+                return "/WEB-INF/user/userbasis.jsp";
+            } else if(login.equals(user.getLogin()) && password.equals(user.getPassword()) && user.getRole() == User.ROLE.ADMIN) {
+                CommandUtility.logUser(request, login);
+                CommandUtility.setUserRole(request, User.ROLE.ADMIN, login);
+                return "/WEB-INF/admin/adminbasis.jsp";
+            }
         }
 
+        request.setAttribute("userError", true);
 
+        return "/login.jsp";
     }
-
 }

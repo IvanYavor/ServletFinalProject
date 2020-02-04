@@ -20,19 +20,18 @@ public class MainServlet extends HttpServlet {
     private Map<String, Command> commands = new HashMap<>();
     private UserService userService = new UserService();
 
+
+
     @Override
     public void init(ServletConfig config) throws ServletException {
         config.getServletContext().setAttribute("loggedUsers",
                 new HashSet<String>());
 
         commands.put("logout", new LogoutCommand());
-        commands.put("login", new LoginCommand());
+        commands.put("login", new LoginCommand(userService));
         commands.put("exception", new ExceptionCommand());
-        commands.put("registration", new RegistrationCommand());
-
-        List<User> users =userService.getAllUsers();
-
-        commands.put("userlist", new UserListCommand(new UserService()));
+        commands.put("registration", new RegistrationCommand(userService));
+        commands.put("userlist", new UserListCommand(userService));
     }
 
     @Override

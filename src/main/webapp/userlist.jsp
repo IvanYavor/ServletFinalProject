@@ -11,22 +11,13 @@
 <h2>
     List Students <br/>
 </h2>
-<%--<table>--%>
-<%--    <tr><th>Name</th><th>Group</th></tr>--%>
-<%--    <c:forEach var="i" items="${users}">--%>
-<%--    <tr><td>${i.login}<c:out value="${i.login}"/></td><td>${i.password}</td>--%>
-<%--        </c:forEach>--%>
-<%--</table>--%>
-<%--<br>--%>
-<%--<br>--%>
-<%=request.getAttribute("users")%>
-<br>
-<c:out value="${users}"/>
-
-
+<table>
+    <tr><th>Login</th><th>Full Name</th><th>Role</th></tr>
+    <c:forEach var="i" items="${users}">
+    <tr><td>${i.login}</td><td>${i.fullName}</td><td>${i.role}</td>
+        </c:forEach>
+</table>
 
 <br/>
-<a href="./index.jsp">index</a>
-<br/>
-<a href="${pageContext.request.contextPath}/index.jsp">index</a>
+<a href="${pageContext.request.contextPath}/index">index</a>
 </body>
