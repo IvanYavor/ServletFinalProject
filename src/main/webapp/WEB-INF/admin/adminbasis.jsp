@@ -7,6 +7,11 @@
 <body>
 
 <h1>Hello ADMIN!</h1>
+<p>You're ${sessionScope.user.fullName}</p>
+<p>You're a admin</p>
+<p>Your login: ${sessionScope.user.login}</p>
+<br />
+<a href="${pageContext.request.contextPath}/admin/listUsers">edit users</a>
 <a href="${pageContext.request.contextPath}/logout">Logout</a>
 </body>
 </html>

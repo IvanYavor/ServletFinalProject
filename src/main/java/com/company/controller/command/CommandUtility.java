@@ -23,8 +23,6 @@ public class CommandUtility {
         if(loggedUsers.stream().anyMatch(login::equals)) {
             return true;
         }
-        //loggedUsers.add(login);
-        //request.getSession().getServletContext().setAttribute("loggedUsers", loggedUsers);
         return false;
     }
 
@@ -38,6 +36,11 @@ public class CommandUtility {
         HashSet<String> loggedUsers = (HashSet<String>) request.getSession().getServletContext().getAttribute("loggedUsers");
         loggedUsers.remove(login);
         request.getSession().getServletContext().setAttribute("loggedUsers", loggedUsers);
+    }
+
+    static void setUserInfo(User user, HttpServletRequest request) {
+          HttpSession session = request.getSession();
+          session.setAttribute("user", user);
     }
 
 

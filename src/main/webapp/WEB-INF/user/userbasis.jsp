@@ -8,6 +8,10 @@
 <body>
 
 <h1>Hello USER!</h1>
+<p>You're ${sessionScope.user.fullName}</p>
+<p>You're a student</p>
+<p>Your login: ${sessionScope.user.login}</p>
+<br />
 <a href="${pageContext.request.contextPath}/logout">Logout</a>
 </body>
 </html>

@@ -14,11 +14,11 @@
 <table>
     <tr><th>Login</th><th>Full Name</th><th>Role</th></tr>
     <c:forEach var="i" items="${users}">
-    <tr><td>${i.login}</td><td>${i.fullName}</td><td>${i.role}</td>
+    <tr><td>${i.login}</td><td>${i.fullName}</td><td>${i.role}</td> <td><a href="/admin/edit/${i.id}">Edit User</a></td>
         </c:forEach>
 </table>
 
 <br/>
-<a href="${pageContext.request.contextPath}/index">index</a>
+<a href="${pageContext.request.contextPath}/admin">profile</a>
 </body>
 </html>

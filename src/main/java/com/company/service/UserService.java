@@ -28,4 +28,39 @@ public class UserService {
             return true;
         }
     }
+
+    public User getUserById(Integer id) {
+        try(UserDao dao = daoFactory.createUserDao()) {
+            return dao.findById(id);
+        }
+    }
+
+    public boolean updateUser(User user) {
+        try(UserDao dao = daoFactory.createUserDao()) {
+            if(!checkIfLoginExists(user.getLogin())) {
+                dao.update(user);
+                return true;
+            }
+            return false;
+        }
+    }
+
+    private boolean checkIfLoginExists(String login) {
+        try(UserDao dao = daoFactory.createUserDao()) {
+            List<User> users = dao.findAll();
+            for(User u : users) {
+                if(u.getLogin().equals(login)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+    }
+
+    public void deleteUser(int id) {
+        try(UserDao dao = daoFactory.createUserDao()) {
+            dao.delete(id);
+        }
+    }
 }

@@ -49,7 +49,31 @@ public class JDBCUserDao implements UserDao {
 
     @Override
     public User findById(int id) {
-        return null;
+        final String query = "select * from users where id=?";
+        String str_id = String.valueOf(id);
+
+        try(Statement st = connection.createStatement()) {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, str_id);
+            ResultSet rs = ps.executeQuery();
+            User user = null;
+            if (rs.next()) {
+                UserMapper userMapper = new UserMapper();
+                user = userMapper.extractFromResultSet(rs);
+            }
+
+
+//            UserMapper userMapper = new UserMapper();
+//            User user = userMapper.extractFromResultSet(rs);
+
+            return user;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        //        return null;
     }
 
     @Override
@@ -76,13 +100,32 @@ public class JDBCUserDao implements UserDao {
     }
 
     @Override
-    public void update(int id) {
+    public void update(User user) {
+        final String query = "UPDATE users set login=? where id=?";
 
+        try (Statement st = connection.createStatement()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, user.getLogin());
+            preparedStatement.setString(2, String.valueOf(user.getId()));
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+
 
     @Override
     public void delete(int id) {
+        final String query = "delete from users where id = ?";
 
+        try(Statement st = connection.createStatement()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, String.valueOf(id));
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -19,6 +19,9 @@ public class LogoutCommand implements Command {
         loggedUsers.remove(username);
 
         CommandUtility.setUserRole(request, User.ROLE.UNKNOWN, "Guest");
+
+        request.getSession().invalidate();
+
         return "/index.jsp";
     }
 }
