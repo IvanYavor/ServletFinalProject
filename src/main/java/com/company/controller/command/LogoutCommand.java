@@ -4,8 +4,7 @@ import com.company.model.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+
 
 public class LogoutCommand implements Command {
 
@@ -15,11 +14,14 @@ public class LogoutCommand implements Command {
 
         HashSet<String> loggedUsers = (HashSet<String>) request.getSession().getServletContext().getAttribute("loggedUsers");
 
-        String username = (String) request.getSession().getServletContext().getAttribute("username");
+        String username = (String) request.getSession().getServletContext().getAttribute("login");
 
         loggedUsers.remove(username);
 
         CommandUtility.setUserRole(request, User.ROLE.UNKNOWN, "Guest");
+
+        request.getSession().invalidate();
+
         return "/index.jsp";
     }
 }

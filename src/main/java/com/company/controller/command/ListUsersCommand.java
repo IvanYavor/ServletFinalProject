@@ -6,10 +6,10 @@ import com.company.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-public class UserListCommand implements Command {
-    UserService userService;
+public class ListUsersCommand implements Command {
+    private UserService userService;
 
-    public UserListCommand(UserService userService) {
+    public ListUsersCommand(UserService userService) {
         this.userService = userService;
     }
 
@@ -17,6 +17,6 @@ public class UserListCommand implements Command {
     public String execute(HttpServletRequest request) {
         List<User> users = userService.getAllUsers();
         request.setAttribute("users", users);
-        return "/userlist.jsp";
+        return "/WEB-INF/admin/list-users.jsp";
     }
 }

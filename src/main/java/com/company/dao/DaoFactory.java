@@ -1,6 +1,5 @@
 package com.company.dao;
 
-import com.company.UserDao;
 import com.company.dao.impl.JDBCDaoFactory;
 
 public abstract class DaoFactory {
@@ -9,7 +8,7 @@ public abstract class DaoFactory {
     //todo create all dao
     public abstract UserDao createUserDao();
 
-    public static DaoFactory getInstance() {
+    public static DaoFactory getInstance()  {
         if(daoFactory == null) {
             synchronized (DaoFactory.class) {
                 if(daoFactory == null) {

@@ -1,8 +1,11 @@
 package com.company.dao.impl;
 
-import org.apache.commons.dbcp.BasicDataSource;
+
+
+import org.apache.commons.dbcp2.BasicDataSource;
 
 import javax.sql.DataSource;
+
 
 public class ConnectionPoolHolder {
     private static volatile DataSource dataSource;
@@ -18,9 +21,13 @@ public class ConnectionPoolHolder {
                     ds.setMaxIdle(10);
                     ds.setMaxOpenPreparedStatements(100);
                     dataSource = ds;
+
                 }
             }
         }
+
         return dataSource;
     }
+
+
 }

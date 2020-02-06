@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page session="true" contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Login in system</title>
@@ -8,9 +8,16 @@
 <body>
 
 <h1>Вход в систему</h1><br/>
+
+<c:if test="${userError}">
+    <li>Invalid login or password</li>
+</c:if>
+<c:if test="${sessionScope.userSave}">
+    <li>You registered successfully</li>
+</c:if>
 <form method="post" action="${pageContext.request.contextPath}/login">
 
-    <input type="text" name="username"><br/>
+    <input type="text" name="login"><br/>
     <input type="password" name="password"><br/><br/>
     <input class="button" type="submit" value="Войти">
 

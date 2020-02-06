@@ -6,8 +6,6 @@ import java.util.HashSet;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class SessionListener implements HttpSessionListener {
-    //
-    //private AtomicReference<UserDAO> dao;
 
     @Override
     public void sessionCreated(HttpSessionEvent se) {
@@ -20,9 +18,9 @@ public class SessionListener implements HttpSessionListener {
                 .getSession().getServletContext()
                 .getAttribute("loggedUsers");
 
-        String userName = (String) se.getSession().getAttribute("userName");
+        String login = (String) se.getSession().getAttribute("login");
 
-        loggedUsers.remove(userName);
+        loggedUsers.remove(login);
         se.getSession().setAttribute("loggedUsers", loggedUsers);
     }
 }
