@@ -1,5 +1,6 @@
 package com.company.dao.impl;
 
+import com.company.dao.SpecialityDao;
 import com.company.dao.UserDao;
 import com.company.dao.DaoFactory;
 
@@ -13,6 +14,11 @@ public class JDBCDaoFactory extends DaoFactory {
     @Override
     public UserDao createUserDao() {
         return new JDBCUserDao(getConnection());
+    }
+
+    @Override
+    public SpecialityDao createSpecialityDao() {
+        return new JDBCSpecialityDao(getConnection());
     }
 
     private Connection getConnection() {

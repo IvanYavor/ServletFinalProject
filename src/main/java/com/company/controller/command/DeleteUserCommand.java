@@ -14,7 +14,7 @@ public class DeleteUserCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
-        int id  = Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("id"));
         userService.deleteUser(id);
         return "/WEB-INF/admin/adminbasis.jsp";
     }

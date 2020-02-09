@@ -15,8 +15,8 @@ public class ListUsersCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
-        List<User> users = userService.getAllUsers();
+        List<User> users = userService.getAllStudents();
         request.setAttribute("users", users);
-        return "/WEB-INF/admin/list-users.jsp";
+        return "/WEB-INF/admin/listUsers.jsp";
     }
 }

@@ -1,7 +1,6 @@
 package com.company.controller.servlet;
 
 import com.company.controller.command.*;
-import com.company.model.entity.User;
 import com.company.service.UserService;
 
 import javax.servlet.ServletConfig;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 
 
@@ -31,7 +29,6 @@ public class MainServlet extends HttpServlet {
         commands.put("login", new LoginCommand(userService));
         commands.put("exception", new ExceptionCommand());
         commands.put("registration", new RegistrationCommand(userService));
-//        commands.put("userlist", new UserListCommand(userService));
     }
 
     @Override

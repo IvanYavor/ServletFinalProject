@@ -5,13 +5,14 @@ import com.company.dao.impl.JDBCDaoFactory;
 public abstract class DaoFactory {
     private static DaoFactory daoFactory;
 
-    //todo create all dao
     public abstract UserDao createUserDao();
 
-    public static DaoFactory getInstance()  {
-        if(daoFactory == null) {
+    public abstract SpecialityDao createSpecialityDao();
+
+    public static DaoFactory getInstance() {
+        if (daoFactory == null) {
             synchronized (DaoFactory.class) {
-                if(daoFactory == null) {
+                if (daoFactory == null) {
                     DaoFactory temp = new JDBCDaoFactory();
                     daoFactory = temp;
                 }

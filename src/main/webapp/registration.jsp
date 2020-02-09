@@ -13,7 +13,7 @@
     <li>Invalid Login</li>
 </c:if>
 
-<c:if test="passwordError">
+<c:if test="${passwordError}">
     <li>Invalid Password</li>
 </c:if>
 
