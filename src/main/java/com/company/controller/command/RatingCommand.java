@@ -8,6 +8,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.company.constant.PageUrlConstants.RATING_PAGE;
+
 public class RatingCommand implements Command {
     private UserService userService;
 
@@ -25,6 +27,6 @@ public class RatingCommand implements Command {
                         reversed()
         ).collect(Collectors.toList());
         request.setAttribute("students", students);
-        return "/WEB-INF/rating.jsp";
+        return RATING_PAGE;
     }
 }

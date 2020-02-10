@@ -18,6 +18,7 @@
 <form method="post" action="/admin/edit">
     <input type="hidden" name="id" value="${requestScope.user.id}" >
     <input type="number" name="score" > <label>Score</label>
+    <input type="text" name="text_message" > <label>Message</label>
     <button type="submit">Save</button>
 </form>
 </c:if>

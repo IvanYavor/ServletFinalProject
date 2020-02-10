@@ -52,4 +52,16 @@ public class UserService {
             return dao.findByRole(User.ROLE.USER);
         }
     }
+
+    public boolean checkIfStudentIdExists(int id) {
+        try(UserDao dao = daoFactory.createUserDao()) {
+            List<User> students = dao.findByRole(User.ROLE.USER);
+            for(User s : students) {
+                if(s.getId() == id) {
+                    return true;
+                }
+            }
+            return  false;
+        }
+    }
 }

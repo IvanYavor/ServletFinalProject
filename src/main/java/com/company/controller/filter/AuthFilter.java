@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+import static com.company.constant.PageUrlConstants.INDEX_PATH;
+
 public class AuthFilter implements Filter {
     private HttpServletRequest httpServletRequest;
 
@@ -29,17 +31,21 @@ public class AuthFilter implements Filter {
 
         if (path.startsWith("/admin")) {
             if (isLoggedInAdmin && (isLoginRequest || isLoginPage)) {
-                httpServletRequest.getRequestDispatcher("/index").forward(request, response);
+                httpServletRequest.getRequestDispatcher(INDEX_PATH).forward(request, response);
+
             } else if (!isLoggedInAdmin) {
-                httpServletRequest.getRequestDispatcher("/index").forward(request, response);
+                httpServletRequest.getRequestDispatcher(INDEX_PATH).forward(request, response);
+
             } else {
                 filterChain.doFilter(request, response);
             }
         } else if (path.startsWith("/user")) {
             if (isLoggedInUser && (isLoginRequest || isLoginPage)) {
-                httpServletRequest.getRequestDispatcher("/index").forward(request, response);
+                httpServletRequest.getRequestDispatcher(INDEX_PATH).forward(request, response);
+
             } else if (!isLoggedInUser) {
-                httpServletRequest.getRequestDispatcher("/index").forward(request, response);
+                httpServletRequest.getRequestDispatcher(INDEX_PATH).forward(request, response);
+
             } else {
                 filterChain.doFilter(request, response);
             }

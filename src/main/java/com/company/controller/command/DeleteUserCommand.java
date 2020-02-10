@@ -4,6 +4,8 @@ import com.company.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static com.company.constant.PageUrlConstants.ADMIN_HOME_PAGE;
+
 public class DeleteUserCommand implements Command {
     private UserService userService;
 
@@ -16,6 +18,6 @@ public class DeleteUserCommand implements Command {
     public String execute(HttpServletRequest request) {
         int id = Integer.parseInt(request.getParameter("id"));
         userService.deleteUser(id);
-        return "/WEB-INF/admin/adminbasis.jsp";
+        return ADMIN_HOME_PAGE;
     }
 }

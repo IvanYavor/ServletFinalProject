@@ -6,6 +6,8 @@ import com.company.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import static com.company.constant.PageUrlConstants.*;
+
 public class LoginCommand implements Command {
     private UserService userService;
 
@@ -20,13 +22,13 @@ public class LoginCommand implements Command {
         HttpSession session = request.getSession();
 
         if (login == null || login.equals("") || password == null || password.equals("")) {
-            return "/login.jsp";
+            return LOGIN_PAGE;
         }
 
 
         if (CommandUtility.checkUserIsLogged(request, login)) {
             CommandUtility.unlogUser(request, login);
-            return "/index.jsp";
+            return INDEX_PAGE;
         }
 
         for (User user : userService.getAllUsers()) {
@@ -35,18 +37,18 @@ public class LoginCommand implements Command {
                 CommandUtility.setUserRole(request, User.ROLE.USER, login);
                 CommandUtility.setUserInfo(user, request);
                 session.setAttribute("loggedUser", true);
-                return "/index";
+                return INDEX_PATH;
             } else if (login.equals(user.getLogin()) && password.equals(user.getPassword()) && user.getRole() == User.ROLE.ADMIN) {
                 CommandUtility.logUser(request, login);
                 CommandUtility.setUserRole(request, User.ROLE.ADMIN, login);
                 CommandUtility.setUserInfo(user, request);
                 session.setAttribute("loggedAdmin", true);
-                return "index";
+                return INDEX_PATH;
             }
         }
 
         request.setAttribute("userError", true);
 
-        return "/login.jsp";
+        return LOGIN_PAGE;
     }
 }

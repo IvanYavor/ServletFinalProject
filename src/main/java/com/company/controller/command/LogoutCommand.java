@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashSet;
 
+import static com.company.constant.PageUrlConstants.INDEX_PAGE;
+
 
 public class LogoutCommand implements Command {
 
@@ -24,6 +26,6 @@ public class LogoutCommand implements Command {
 
         request.getSession().invalidate();
 
-        return "/index.jsp";
+        return INDEX_PAGE;
     }
 }

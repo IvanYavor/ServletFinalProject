@@ -22,6 +22,8 @@
 </c:if>
 <br />
 <a href="${pageContext.request.contextPath}/user/regSpeciality">Registration for speciality</a>
+<br/>
+<a href="${pageContext.request.contextPath}/user/message">Message From Admin</a>
 <br />
 <a href="${pageContext.request.contextPath}/logout">Logout</a>
 </body>

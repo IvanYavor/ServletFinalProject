@@ -20,8 +20,11 @@
         <button type="submit">Apply</button>
     </form>
 </c:if>
-<c:if test="${requestScope.user.speciality.name != null}">
+<c:if test="${requestScope.user.speciality.name != null and requestScope.message.text != null}">
     <p>You have chosen ${requestScope.user.speciality.name}</p>
+    <p>Admin left message: </p>
+    <p>text: ${requestScope.message.text}</p>
+    <p>date: ${requestScope.message.date}</p>
 </c:if>
 <br />
 <a href="${pageContext.request.contextPath}/logout">Logout</a>

@@ -1,6 +1,8 @@
 package com.company.controller.servlet;
 
 import com.company.controller.command.*;
+import com.company.model.entity.User;
+import com.company.service.MessageService;
 import com.company.service.SpecialityService;
 import com.company.service.UserService;
 
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 
@@ -19,13 +22,14 @@ public class AdminServlet extends HttpServlet {
     private Map<String, Command> commands = new HashMap<>();
     private UserService userService = new UserService();
     private SpecialityService specialityService = new SpecialityService();
+    private MessageService messageService = new MessageService();
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         config.getServletContext().setAttribute("loggedUsers",
                 new HashSet<String>());
         commands.put("listUsers", new ListUsersCommand(userService));
-        commands.put("edit", new EditUserCommand(userService));
+        commands.put("edit", new EditUserCommand(userService, messageService));
         commands.put("createSpeciality", new CreateSpecialityCommand(specialityService));
         commands.put("delete", new DeleteUserCommand(userService));
         commands.put("rating", new RatingCommand(userService));
@@ -42,7 +46,6 @@ public class AdminServlet extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //todo optimization
 
         int id = -1;
         String path = req.getRequestURI();
@@ -58,4 +61,6 @@ public class AdminServlet extends HttpServlet {
         String page = command.execute(req);
         req.getRequestDispatcher(page).forward(req, resp);
     }
+
+
 }

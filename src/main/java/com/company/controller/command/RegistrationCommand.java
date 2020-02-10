@@ -6,6 +6,9 @@ import com.company.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import java.util.regex.Pattern;
 
+import static com.company.constant.PageUrlConstants.LOGIN_PAGE;
+import static com.company.constant.PageUrlConstants.REGISTRATION_PAGE;
+
 public class RegistrationCommand implements Command {
     //todo norm regex
     final static String loginPattern = "^[a-z0-9_-]{3,32}$";
@@ -34,13 +37,13 @@ public class RegistrationCommand implements Command {
 
         if (!Pattern.matches(loginPattern, login)) {
             request.setAttribute("loginError", true);
-            return "/registration.jsp";
+            return REGISTRATION_PAGE;
         } else if (!Pattern.matches(passwordPattern, password)) {
             request.setAttribute("passwordError", true);
-            return "/registration.jsp";
+            return REGISTRATION_PAGE;
         } else if (!Pattern.matches(fullNamePattern, fullName)) {
             request.setAttribute("fullNameError", true);
-            return "/registration.jsp";
+            return REGISTRATION_PAGE;
         }
 
         User user = new User();
@@ -53,9 +56,9 @@ public class RegistrationCommand implements Command {
             request.getSession().setAttribute("UserSave", true);
         } else {
             request.setAttribute("userExists", true);
-            return "/registration.jsp";
+            return REGISTRATION_PAGE;
         }
 
-        return "/login.jsp";
+        return LOGIN_PAGE;
     }
 }
