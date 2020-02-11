@@ -1,7 +1,7 @@
 package com.company.service;
 
-import com.company.dao.UserDao;
 import com.company.dao.DaoFactory;
+import com.company.dao.UserDao;
 import com.company.model.entity.User;
 
 import java.util.List;
@@ -10,16 +10,16 @@ public class UserService {
     DaoFactory daoFactory = DaoFactory.getInstance();
 
     public List<User> getAllUsers() {
-        try(UserDao dao = daoFactory.createUserDao()) {
+        try (UserDao dao = daoFactory.createUserDao()) {
             return dao.findAll();
         }
     }
 
     public boolean saveUser(User user) {
-        try(UserDao dao = daoFactory.createUserDao()) {
+        try (UserDao dao = daoFactory.createUserDao()) {
             List<User> users = dao.findAll();
-            for(User u : users) {
-                if(u.getLogin().equals(user.getLogin())) {
+            for (User u : users) {
+                if (u.getLogin().equals(user.getLogin())) {
                     return false;
                 }
             }
@@ -30,37 +30,38 @@ public class UserService {
     }
 
     public User getUserById(Integer id) {
-        try(UserDao dao = daoFactory.createUserDao()) {
+        try (UserDao dao = daoFactory.createUserDao()) {
             return dao.findById(id);
         }
     }
 
-    public boolean updateUser(User user) {
-        try(UserDao dao = daoFactory.createUserDao()) {
-            if(!checkIfLoginExists(user.getLogin())) {
-                dao.update(user);
-                return true;
-            }
-            return false;
+    public void updateUser(User user) {
+        try (UserDao dao = daoFactory.createUserDao()) {
+            dao.update(user);
         }
-    }
-
-    private boolean checkIfLoginExists(String login) {
-        try(UserDao dao = daoFactory.createUserDao()) {
-            List<User> users = dao.findAll();
-            for(User u : users) {
-                if(u.getLogin().equals(login)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
     }
 
     public void deleteUser(int id) {
-        try(UserDao dao = daoFactory.createUserDao()) {
+        try (UserDao dao = daoFactory.createUserDao()) {
             dao.delete(id);
+        }
+    }
+
+    public List<User> getAllStudents() {
+        try (UserDao dao = daoFactory.createUserDao()) {
+            return dao.findByRole(User.ROLE.USER);
+        }
+    }
+
+    public boolean checkIfStudentIdExists(int id) {
+        try(UserDao dao = daoFactory.createUserDao()) {
+            List<User> students = dao.findByRole(User.ROLE.USER);
+            for(User s : students) {
+                if(s.getId() == id) {
+                    return true;
+                }
+            }
+            return  false;
         }
     }
 }

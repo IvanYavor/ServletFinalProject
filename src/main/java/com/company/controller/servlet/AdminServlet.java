@@ -1,5 +1,11 @@
 package com.company.controller.servlet;
 
+import com.company.controller.command.*;
+import com.company.model.entity.User;
+import com.company.service.MessageService;
+import com.company.service.SpecialityService;
+import com.company.service.UserService;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -8,39 +14,39 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import com.company.controller.command.*;
-import com.company.service.UserService;
 
 
 public class AdminServlet extends HttpServlet {
     private Map<String, Command> commands = new HashMap<>();
     private UserService userService = new UserService();
+    private SpecialityService specialityService = new SpecialityService();
+    private MessageService messageService = new MessageService();
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         config.getServletContext().setAttribute("loggedUsers",
                 new HashSet<String>());
         commands.put("listUsers", new ListUsersCommand(userService));
-        commands.put("edit", new EditUserCommand(userService));
-        commands.put("editpost", new EditPostUserCommand(userService));
+        commands.put("edit", new EditUserCommand(userService, messageService));
+        commands.put("createSpeciality", new CreateSpecialityCommand(specialityService));
         commands.put("delete", new DeleteUserCommand(userService));
+        commands.put("rating", new RatingCommand(userService));
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        req.getRequestDispatcher("/WEB-INF/admin/adminbasis.jsp").forward(req, resp);
         processRequest(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        req.getRequestDispatcher("/WEB-INF/admin/adminbasis.jsp").forward(req, resp);
-//        processPostRequest(req, resp);
         processRequest(req, resp);
     }
 
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         int id = -1;
         String path = req.getRequestURI();
         path = path.replaceFirst("/admin", "");
@@ -55,4 +61,6 @@ public class AdminServlet extends HttpServlet {
         String page = command.execute(req);
         req.getRequestDispatcher(page).forward(req, resp);
     }
+
+
 }

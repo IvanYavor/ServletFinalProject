@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Car List</title>
+    <title>User List</title>
 </head>
 <body>
 <h2>
@@ -14,7 +14,7 @@
 <table>
     <tr><th>Login</th><th>Full Name</th><th>Role</th></tr>
     <c:forEach var="i" items="${users}">
-    <tr><td>${i.login}</td><td>${i.fullName}</td><td>${i.role}</td> <td><a href="/admin/edit/${i.id}">Edit User</a></td>
+    <tr><td>${i.login}</td><td>${i.fullName}</td><td>${i.role}</td> <td><a href="/admin/edit/${i.id}">Rate student</a></td>
         </c:forEach>
 </table>
 

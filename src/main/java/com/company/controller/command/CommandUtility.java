@@ -1,7 +1,6 @@
 package com.company.controller.command;
 
 import com.company.model.entity.User;
-import org.apache.taglibs.standard.lang.jstl.GreaterThanOrEqualsOperator;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -20,10 +19,7 @@ public class CommandUtility {
     static boolean checkUserIsLogged(HttpServletRequest request, String login) {
         HashSet<String> loggedUsers = (HashSet<String>) request.getSession().getServletContext().getAttribute("loggedUsers");
 
-        if(loggedUsers.stream().anyMatch(login::equals)) {
-            return true;
-        }
-        return false;
+        return loggedUsers.stream().anyMatch(login::equals);
     }
 
     static void logUser(HttpServletRequest request, String login) {
@@ -39,8 +35,8 @@ public class CommandUtility {
     }
 
     static void setUserInfo(User user, HttpServletRequest request) {
-          HttpSession session = request.getSession();
-          session.setAttribute("user", user);
+        HttpSession session = request.getSession();
+        session.setAttribute("user", user);
     }
 
 

@@ -6,6 +6,11 @@ public class User {
     private String login;
     private String password;
     private String fullName;
+    private Speciality speciality;
+    private int specialityId;
+    private Integer testScore;
+
+    private boolean isAccepted;
 
 
     public User(int id, String login, String password, ROLE role, String fullName) {
@@ -69,5 +74,38 @@ public class User {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public int getSpecialityId() {
+        return specialityId;
+    }
+
+    public void setSpecialityId(int specialityId) {
+        this.specialityId = specialityId;
+    }
+
+    public Integer getTestScore() {
+        return testScore;
+    }
+
+    public void setTestScore(Integer testScore) {
+        this.testScore = testScore;
+    }
+
+    public boolean isAccepted() {
+        return isAccepted;
+    }
+
+    public void setAccepted(boolean accepted) {
+        isAccepted = accepted;
+    }
+
+
+    public Speciality getSpeciality() {
+        return speciality;
+    }
+
+    public void setSpeciality(Speciality speciality) {
+        this.speciality = speciality;
     }
 }

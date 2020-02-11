@@ -2,19 +2,23 @@ package com.company.controller.command;
 
 import com.company.model.entity.User;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashSet;
+
+import static com.company.constant.PageUrlConstants.INDEX_PAGE;
 
 
 public class LogoutCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
-        //todo  delete current user (context & session)
+        HttpSession session = request.getSession();
+        ServletContext context = session.getServletContext();
+        HashSet<String> loggedUsers = (HashSet<String>) context.getAttribute("loggedUsers");
 
-        HashSet<String> loggedUsers = (HashSet<String>) request.getSession().getServletContext().getAttribute("loggedUsers");
-
-        String username = (String) request.getSession().getServletContext().getAttribute("login");
+        String username = (String) context.getAttribute("login");
 
         loggedUsers.remove(username);
 
@@ -22,6 +26,6 @@ public class LogoutCommand implements Command {
 
         request.getSession().invalidate();
 
-        return "/index.jsp";
+        return INDEX_PAGE;
     }
 }

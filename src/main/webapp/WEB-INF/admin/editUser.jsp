@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ivan
-  Date: 04.02.20
-  Time: 23:00
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page session="true" contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -14,25 +7,25 @@
 <body>
 <form method="post" action="/admin/delete">
     <input type="hidden" name="id" value="${requestScope.user.id}">
-    <button type="submit" >delete user</button>
+    <button type="submit" >delete student</button>
 </form>
 <br/>
 <br/>
-<%--<p>${sessionScope.id}</p>--%>
-<%--<p>${sessionScope.user.login}</p>--%>
-<%--<p>${sessionScope.user.fullName}</p>--%>
-<%--<p>${sessionScope.user.role}</p>--%>
-<c:if test="${loginError}">
-    <li>login exists</li>
+<c:if test="${requestScope.scoreError}">
+    <li>Score out of bounds</li>
 </c:if>
-<form method="post" action="/admin/editpost">
-    <input type="text" name="login" value="${requestScope.user.login}" >
+<c:if test="${(requestScope.user.speciality.name != null) and (requestScope.user.testScore == 0)}">
+<form method="post" action="/admin/edit">
     <input type="hidden" name="id" value="${requestScope.user.id}" >
+    <input type="number" name="score" > <label>Score</label>
+    <input type="text" name="text_message" > <label>Message</label>
     <button type="submit">Save</button>
 </form>
-<p>${requestScope.user.login}</p>
-<p>${requestScope.user.fullName}</p>
-<p>${requestScope.user.role}</p>
-
+</c:if>
+<p>Login: ${requestScope.user.login}</p>
+<p>Full name: ${requestScope.user.fullName}</p>
+<p>Speciality: ${requestScope.user.speciality.name}</p>
+<p>Faculty: ${requestScope.user.speciality.faculty}</p>
+<p>Test: ${requestScope.user.testScore}</p>
 </body>
 </html>

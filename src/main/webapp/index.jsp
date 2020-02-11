@@ -26,8 +26,7 @@
 <c:if test="${!sessionScope.loggedAdmin and !sessionScope.loggedUser}">
 <a href="${pageContext.request.contextPath}/registration">Registration</a>
 </c:if>
-<br>
-<a href="${pageContext.request.contextPath}/userlist">User List</a>
+
 
 
 </body>

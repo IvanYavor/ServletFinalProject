@@ -6,11 +6,15 @@ import com.company.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import java.util.regex.Pattern;
 
+import static com.company.constant.PageUrlConstants.LOGIN_PAGE;
+import static com.company.constant.PageUrlConstants.REGISTRATION_PAGE;
+
 public class RegistrationCommand implements Command {
-    private UserService userService;
+    //todo norm regex
     final static String loginPattern = "^[a-z0-9_-]{3,32}$";
     final static String passwordPattern = "^[a-zA-Z0-9]\\w{0,32}$";
     final static String fullNamePattern = "^([a-zA-Z0-9]+|[a-zA-Z0-9]+\\s{1}[a-zA-Z0-9]{1,}|[a-zA-Z0-9]+\\s{1}[a-zA-Z0-9]{3,}\\s{1}[a-zA-Z0-9]{1,})$";
+    private UserService userService;
 
     public RegistrationCommand(UserService userService) {
         this.userService = userService;
@@ -24,27 +28,23 @@ public class RegistrationCommand implements Command {
         String password = request.getParameter("password");
         String fullName = request.getParameter("fullName");
 
-       // Pattern.matches(loginPattern, login);
-
-        if( login == null || login.equals("") || password == null || password.equals("")
-            || fullName == null || fullName.equals("") || CommandUtility.checkUserIsLogged(request, login)) {
-//            request.setAttribute("emptyFields", true);
+        if (login == null || login.equals("")
+                || password == null || password.equals("")
+                || fullName == null || fullName.equals("")
+                || CommandUtility.checkUserIsLogged(request, login)) {
             return "/registration.jsp";
-
         }
-        if(!Pattern.matches(loginPattern, login)) {
+
+        if (!Pattern.matches(loginPattern, login)) {
             request.setAttribute("loginError", true);
-            return "/registration.jsp";
-        } else if(!Pattern.matches(passwordPattern, password)) {
+            return REGISTRATION_PAGE;
+        } else if (!Pattern.matches(passwordPattern, password)) {
             request.setAttribute("passwordError", true);
-            return "/registration.jsp";
-        } else if(!Pattern.matches(fullNamePattern, fullName)) {
+            return REGISTRATION_PAGE;
+        } else if (!Pattern.matches(fullNamePattern, fullName)) {
             request.setAttribute("fullNameError", true);
-            return "/registration.jsp";
+            return REGISTRATION_PAGE;
         }
-
-        //todo user already exists
-
 
         User user = new User();
         user.setLogin(login);
@@ -52,17 +52,13 @@ public class RegistrationCommand implements Command {
         user.setFullName(fullName);
         user.setRole(User.ROLE.USER);
 
-        if(userService.saveUser(user)) {
+        if (userService.saveUser(user)) {
             request.getSession().setAttribute("UserSave", true);
-           // return "/login.jsp";
-        } else  {
+        } else {
             request.setAttribute("userExists", true);
-            return "/registration.jsp";
+            return REGISTRATION_PAGE;
         }
 
-        return "/login.jsp";
-        //userDAO.save();
-//        userService.saveUser(username, password, fullName);
-//        return "/registration.jsp";
+        return LOGIN_PAGE;
     }
 }
