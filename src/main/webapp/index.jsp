@@ -5,8 +5,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%@ page isELIgnored="false" %>
 
-<fmt:setLocale value="${locale}"/>
-<fmt:setBundle basename="${bundle}"/>
 <html>
 <head>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
@@ -16,9 +14,7 @@
 <body>
 <h1>Welcome page</h1>
 
-<h1>
-    <fmt:message key="label.welcome"></fmt:message>
-</h1>
+
 <a href="language?locale=en">en</a>
 <a href="language?locale=uk">ua</a>
 
