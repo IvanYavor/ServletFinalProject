@@ -12,7 +12,7 @@
 <p>Your login: ${sessionScope.user.login}</p>
 <br/>
 <a href="${pageContext.request.contextPath}/admin/rating">Rating</a>
-<br />
+<br/>
 <a href="${pageContext.request.contextPath}/admin/createSpeciality">create new speciality</a>
 <br/>
 <a href="${pageContext.request.contextPath}/admin/listUsers">All Students</a>

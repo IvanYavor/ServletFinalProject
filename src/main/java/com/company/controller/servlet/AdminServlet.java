@@ -1,7 +1,6 @@
 package com.company.controller.servlet;
 
 import com.company.controller.command.*;
-import com.company.model.entity.User;
 import com.company.service.MessageService;
 import com.company.service.SpecialityService;
 import com.company.service.UserService;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 
 
@@ -52,7 +50,8 @@ public class AdminServlet extends HttpServlet {
         path = path.replaceFirst("/admin", "");
         path = path.replaceFirst("/", "");
         String[] res = path.split("/");
-        if(res.length > 1) {
+
+        if (res.length > 1) {
             id = Integer.parseInt(res[1]);
             req.setAttribute("id", id);
             path = res[0];

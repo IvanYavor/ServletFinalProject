@@ -1,8 +1,7 @@
 package com.company.controller.command;
 
-import com.company.model.entity.Message;
-import com.company.model.entity.Speciality;
-import com.company.model.entity.User;
+import com.company.entity.Speciality;
+import com.company.entity.User;
 import com.company.service.MessageService;
 import com.company.service.SpecialityService;
 import com.company.service.UserService;
@@ -41,8 +40,6 @@ public class RegistrationSpecialityCommand implements Command {
         user.setSpeciality(s);
         userService.updateUser(user);
         request.getSession().setAttribute("user", user);
-//        Message message =  messageService.getByUserId(Integer.parseInt(id));
-//        request.setAttribute("message", message);
         request.setAttribute("user", user);
         return USER_HOME_PAGE;
     }

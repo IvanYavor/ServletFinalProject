@@ -2,7 +2,7 @@ package com.company.service;
 
 import com.company.dao.DaoFactory;
 import com.company.dao.SpecialityDao;
-import com.company.model.entity.Speciality;
+import com.company.entity.Speciality;
 
 import java.util.List;
 

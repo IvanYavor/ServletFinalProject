@@ -2,7 +2,8 @@ package com.company.dao.impl;
 
 import com.company.dao.SpecialityDao;
 import com.company.dao.mapper.SpecialityMapper;
-import com.company.model.entity.Speciality;
+import com.company.entity.Speciality;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,7 +12,15 @@ import java.util.List;
 import java.util.Map;
 
 public class JDBCSpecialityDao implements SpecialityDao {
+    public static final String SELECT_FROM_SPECIALITY_WHERE_ID = "Select * from speciality where id=?";
+    public static final String INSERT_INTO_SPECIALITY = "insert into speciality(id_speciality, name, description, faculty) values(NULL, ?, ?, ?)";
+    public static final String UPDATE_SPECIALITY = "UPDATE speciality set speciality.name=?, description=?, faculty=? where id=?";
+    public static final String SELECT_FROM_SPECIALITY = "Select * from speciality";
+    public static final String DELETE_FROM_SPECIALITY_WHERE_ID = "delete from speciality where id = ?";
+    public static final String SELECT_FROM_SPECIALITY_WHERE_SPECIALITY_NAME = "Select * from speciality where speciality.name=?";
     private Connection connection;
+
+    private Logger LOG = Logger.getLogger(JDBCSpecialityDao.class);
 
     public JDBCSpecialityDao(Connection connection) {
         this.connection = connection;
@@ -19,9 +28,8 @@ public class JDBCSpecialityDao implements SpecialityDao {
 
 
     public Speciality findByName(String name) {
-        final String query = "Select * from speciality where speciality.name=?";
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_FROM_SPECIALITY_WHERE_SPECIALITY_NAME)) {
             preparedStatement.setString(1, name);
 
             ResultSet rs = preparedStatement.executeQuery();
@@ -33,7 +41,7 @@ public class JDBCSpecialityDao implements SpecialityDao {
 
             return s;
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("SQLException ", e);
             return null;
         }
     }
@@ -44,7 +52,7 @@ public class JDBCSpecialityDao implements SpecialityDao {
         String description = speciality.getDescription();
         String faculty = speciality.getFaculty();
 
-        final String query = "insert into speciality(id_speciality, name, description, faculty) values(NULL, ?, ?, ?)";
+        final String query = INSERT_INTO_SPECIALITY;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, name);
@@ -54,13 +62,13 @@ public class JDBCSpecialityDao implements SpecialityDao {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("SQLException ", e);
         }
     }
 
     @Override
     public Speciality findById(int id) {
-        final String query = "Select * from speciality where id=?";
+        final String query = SELECT_FROM_SPECIALITY_WHERE_ID;
 
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, id);
@@ -74,7 +82,7 @@ public class JDBCSpecialityDao implements SpecialityDao {
 
             return speciality;
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("SQLException ", e);
             return null;
         }
     }
@@ -83,7 +91,7 @@ public class JDBCSpecialityDao implements SpecialityDao {
     public List<Speciality> findAll() {
         Map<Integer, Speciality> specialities = new HashMap<>();
 
-        final String query = "Select * from speciality";
+        final String query = SELECT_FROM_SPECIALITY;
 
         try (Statement st = connection.createStatement()) {
             ResultSet rs = st.executeQuery(query);
@@ -92,19 +100,20 @@ public class JDBCSpecialityDao implements SpecialityDao {
 
             while (rs.next()) {
                 Speciality speciality = specialityMapper.extractFromResultSet(rs);
-                speciality = specialityMapper.makeUnique(specialities, speciality);
+//                speciality = specialityMapper.makeUnique(specialities, speciality);
+                specialities.put(speciality.getId(), speciality);
             }
 
             return new ArrayList<>(specialities.values());
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("SQLException ", e);
             return null;
         }
     }
 
     @Override
     public void update(Speciality speciality) {
-        final String query = "UPDATE speciality set speciality.name=?, description=?, faculty=? where id=?";
+        final String query = UPDATE_SPECIALITY;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, speciality.getName());
@@ -113,19 +122,19 @@ public class JDBCSpecialityDao implements SpecialityDao {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("SQLException ", e);
         }
     }
 
     @Override
     public void delete(int id) {
-        final String query = "delete from speciality where id = ?";
+        final String query = DELETE_FROM_SPECIALITY_WHERE_ID;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("SQLException ", e);
         }
     }
 

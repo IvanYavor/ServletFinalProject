@@ -11,6 +11,8 @@ public abstract class DaoFactory {
 
     public abstract MessageDao createMessageDao();
 
+    public abstract SubjectDao createSubjectDao();
+
     public static DaoFactory getInstance() {
         if (daoFactory == null) {
             synchronized (DaoFactory.class) {

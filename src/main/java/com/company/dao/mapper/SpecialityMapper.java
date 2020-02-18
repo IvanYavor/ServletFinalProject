@@ -1,10 +1,9 @@
 package com.company.dao.mapper;
 
-import com.company.model.entity.Speciality;
+import com.company.entity.Speciality;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Map;
 
 public class SpecialityMapper implements ObjectMapper<Speciality> {
     @Override
@@ -16,11 +15,5 @@ public class SpecialityMapper implements ObjectMapper<Speciality> {
         speciality.setDescription(resultSet.getString("description"));
         speciality.setFaculty(resultSet.getString("faculty"));
         return speciality;
-    }
-
-    @Override
-    public Speciality makeUnique(Map<Integer, Speciality> cache, Speciality speciality) {
-        cache.putIfAbsent(speciality.getId(), speciality);
-        return cache.get(speciality.getId());
     }
 }

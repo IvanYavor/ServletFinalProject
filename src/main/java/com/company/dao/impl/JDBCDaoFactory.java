@@ -1,9 +1,6 @@
 package com.company.dao.impl;
 
-import com.company.dao.MessageDao;
-import com.company.dao.SpecialityDao;
-import com.company.dao.UserDao;
-import com.company.dao.DaoFactory;
+import com.company.dao.*;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -27,8 +24,13 @@ public class JDBCDaoFactory extends DaoFactory {
         return new JDBCMessageDao(getConnection());
     }
 
+    @Override
+    public SubjectDao createSubjectDao() {
+        return new JDBCSubjectDao(getConnection());
+    }
+
     private Connection getConnection() {
-        try{
+        try {
             return dataSource.getConnection();
         } catch (SQLException e) {
             throw new RuntimeException(e);

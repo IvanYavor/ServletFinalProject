@@ -7,7 +7,7 @@
 <body>
 <form method="post" action="/admin/delete">
     <input type="hidden" name="id" value="${requestScope.user.id}">
-    <button type="submit" >delete student</button>
+    <button type="submit">delete student</button>
 </form>
 <br/>
 <br/>
@@ -15,12 +15,12 @@
     <li>Score out of bounds</li>
 </c:if>
 <c:if test="${(requestScope.user.speciality.name != null) and (requestScope.user.testScore == 0)}">
-<form method="post" action="/admin/edit">
-    <input type="hidden" name="id" value="${requestScope.user.id}" >
-    <input type="number" name="score" > <label>Score</label>
-    <input type="text" name="text_message" > <label>Message</label>
-    <button type="submit">Save</button>
-</form>
+    <form method="post" action="/admin/edit">
+        <input type="hidden" name="id" value="${requestScope.user.id}">
+        <input type="number" name="score"> <label>Score</label>
+        <input type="text" name="text_message"> <label>Message</label>
+        <button type="submit">Save</button>
+    </form>
 </c:if>
 <p>Login: ${requestScope.user.login}</p>
 <p>Full name: ${requestScope.user.fullName}</p>

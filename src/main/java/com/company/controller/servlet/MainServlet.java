@@ -19,7 +19,6 @@ public class MainServlet extends HttpServlet {
     private UserService userService = new UserService();
 
 
-
     @Override
     public void init(ServletConfig config) throws ServletException {
         config.getServletContext().setAttribute("loggedUsers",

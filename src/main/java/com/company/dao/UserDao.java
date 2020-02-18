@@ -1,6 +1,6 @@
 package com.company.dao;
 
-import com.company.model.entity.User;
+import com.company.entity.User;
 
 import java.util.List;
 

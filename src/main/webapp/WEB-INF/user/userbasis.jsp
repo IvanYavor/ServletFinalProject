@@ -20,11 +20,11 @@
 <c:if test="${sessionScope.user.accepted}">
     <h1>You're accepted</h1>
 </c:if>
-<br />
+<br/>
 <a href="${pageContext.request.contextPath}/user/regSpeciality">Registration for speciality</a>
 <br/>
 <a href="${pageContext.request.contextPath}/user/message">Message From Admin</a>
-<br />
+<br/>
 <a href="${pageContext.request.contextPath}/logout">Logout</a>
 </body>
 </html>
