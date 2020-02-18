@@ -1,10 +1,9 @@
 package com.company.dao.mapper;
 
-import com.company.model.entity.Message;
+import com.company.entity.Message;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Map;
 
 public class MessageMapper implements ObjectMapper<Message> {
 
@@ -17,11 +16,5 @@ public class MessageMapper implements ObjectMapper<Message> {
         message.setDate(resultSet.getDate("date_message"));
 
         return message;
-    }
-
-    @Override
-    public Message makeUnique(Map<Integer, Message> cache, Message message) {
-        cache.putIfAbsent(message.getId(), message);
-        return cache.get(message.getId());
     }
 }

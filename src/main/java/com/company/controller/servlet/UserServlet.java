@@ -39,8 +39,6 @@ public class UserServlet extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //todo optimization and constants
-
         String path = req.getRequestURI();
         path = path.replaceFirst("/user/", "");
         Command command = commands.getOrDefault(path, (r) -> "/WEB-INF/user/userbasis.jsp");

@@ -11,8 +11,8 @@
 <c:if test="${requestScope.user.speciality.name == null}">
     <form method="post" action="/user/regSpeciality">
         <c:forEach var="s" items="${requestScope.specialities}">
-        <input type="radio" name="speciality_name" value="${s.name}" id="${s.name}" ><label>${s.name}</label>
-        <br/>
+            <input type="radio" name="speciality_name" value="${s.name}" id="${s.name}"><label>${s.name}</label>
+            <br/>
         </c:forEach>
 
         <input type="hidden" name="id" value="${sessionScope.user.id}">
@@ -26,7 +26,7 @@
     <p>text: ${requestScope.message.text}</p>
     <p>date: ${requestScope.message.date}</p>
 </c:if>
-<br />
+<br/>
 <a href="${pageContext.request.contextPath}/logout">Logout</a>
 </body>
 </html>

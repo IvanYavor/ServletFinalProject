@@ -23,7 +23,6 @@ public class ExceptionServlet extends HttpServlet {
 
     private void processError(HttpServletRequest request,
                               HttpServletResponse response) throws IOException {
-        // Analyze the servlet exception
         Throwable throwable = (Throwable) request
                 .getAttribute("javax.servlet.error.exception");
         Integer statusCode = (Integer) request
@@ -39,22 +38,21 @@ public class ExceptionServlet extends HttpServlet {
             requestUri = "Unknown";
         }
 
-        // Set response content type
         response.setContentType("text/html");
 
         PrintWriter out = response.getWriter();
         out.write("<html><head><title>Exception/Error Details</title></head><body>");
-        if(statusCode != 500){
+        if (statusCode != 500) {
             out.write("<h3>Error Details</h3>");
-            out.write("<strong>Status Code</strong>:"+statusCode+"<br>");
-            out.write("<strong>Requested URI</strong>:"+requestUri);
-        }else{
+            out.write("<strong>Status Code</strong>:" + statusCode + "<br>");
+            out.write("<strong>Requested URI</strong>:" + requestUri);
+        } else {
             out.write("<h1>500</h1>");
             out.write("<h3>Exception Details</h3>");
-            out.write("<ul><li>Servlet Name:"+servletName+"</li>");
-            out.write("<li>Exception Name:"+throwable.getClass().getName()+"</li>");
-            out.write("<li>Requested URI:"+requestUri+"</li>");
-            out.write("<li>Exception Message:"+throwable.getMessage()+"</li>");
+            out.write("<ul><li>Servlet Name:" + servletName + "</li>");
+            out.write("<li>Exception Name:" + throwable.getClass().getName() + "</li>");
+            out.write("<li>Requested URI:" + requestUri + "</li>");
+            out.write("<li>Exception Message:" + throwable.getMessage() + "</li>");
             out.write("</ul>");
         }
 

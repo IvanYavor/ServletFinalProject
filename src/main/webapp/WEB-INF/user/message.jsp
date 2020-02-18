@@ -7,9 +7,9 @@
 </head>
 <body>
 <c:if test="${requestScope.message.text != null}">
-<p>Admin left message: </p>
-<p>text: ${requestScope.message.text}</p>
-<p>date: ${requestScope.message.date}</p></p>
+    <p>Admin left message: </p>
+    <p>text: ${requestScope.message.text}</p>
+    <p>date: ${requestScope.message.date}</p></p>
 </c:if>
 <a href="${pageContext.request.contextPath}/logout">Logout</a>
 </body>

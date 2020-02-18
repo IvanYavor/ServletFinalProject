@@ -1,7 +1,7 @@
 package com.company.controller.command;
 
-import com.company.model.entity.Message;
-import com.company.model.entity.User;
+import com.company.entity.Message;
+import com.company.entity.User;
 import com.company.service.MessageService;
 
 import javax.servlet.http.HttpServletRequest;

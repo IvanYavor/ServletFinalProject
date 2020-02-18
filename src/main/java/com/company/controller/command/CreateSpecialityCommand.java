@@ -1,6 +1,6 @@
 package com.company.controller.command;
 
-import com.company.model.entity.Speciality;
+import com.company.entity.Speciality;
 import com.company.service.SpecialityService;
 
 import javax.servlet.http.HttpServletRequest;

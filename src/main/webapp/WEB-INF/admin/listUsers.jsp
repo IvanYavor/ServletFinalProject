@@ -1,6 +1,4 @@
-
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.*, java.text.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
@@ -12,9 +10,17 @@
     List Students <br/>
 </h2>
 <table>
-    <tr><th>Login</th><th>Full Name</th><th>Role</th></tr>
+    <tr>
+        <th>Login</th>
+        <th>Full Name</th>
+        <th>Role</th>
+    </tr>
     <c:forEach var="i" items="${users}">
-    <tr><td>${i.login}</td><td>${i.fullName}</td><td>${i.role}</td> <td><a href="/admin/edit/${i.id}">Rate student</a></td>
+    <tr>
+        <td>${i.login}</td>
+        <td>${i.fullName}</td>
+        <td>${i.role}</td>
+        <td><a href="/admin/edit/${i.id}">Rate student</a></td>
         </c:forEach>
 </table>
 

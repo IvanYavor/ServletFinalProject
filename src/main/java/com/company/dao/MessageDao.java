@@ -1,6 +1,6 @@
 package com.company.dao;
 
-import com.company.model.entity.Message;
+import com.company.entity.Message;
 
 public interface MessageDao extends GenericDao<Message> {
     Message findByUserId(int userId);

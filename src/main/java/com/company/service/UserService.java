@@ -2,7 +2,7 @@ package com.company.service;
 
 import com.company.dao.DaoFactory;
 import com.company.dao.UserDao;
-import com.company.model.entity.User;
+import com.company.entity.User;
 
 import java.util.List;
 
@@ -54,14 +54,14 @@ public class UserService {
     }
 
     public boolean checkIfStudentIdExists(int id) {
-        try(UserDao dao = daoFactory.createUserDao()) {
+        try (UserDao dao = daoFactory.createUserDao()) {
             List<User> students = dao.findByRole(User.ROLE.USER);
-            for(User s : students) {
-                if(s.getId() == id) {
+            for (User s : students) {
+                if (s.getId() == id) {
                     return true;
                 }
             }
-            return  false;
+            return false;
         }
     }
 }

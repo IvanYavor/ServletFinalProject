@@ -2,13 +2,13 @@ package com.company.service;
 
 import com.company.dao.DaoFactory;
 import com.company.dao.MessageDao;
-import com.company.dao.SpecialityDao;
-import com.company.model.entity.Message;
-import com.company.model.entity.Speciality;
+import com.company.entity.Message;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 
 public class MessageService {
+    private static final Logger LOG = Logger.getLogger(MessageService.class);
     DaoFactory daoFactory = DaoFactory.getInstance();
 
     public List<Message> getAllMessages() {
@@ -24,7 +24,7 @@ public class MessageService {
     }
 
     public Message getByUserId(int userId) {
-        try(MessageDao dao = daoFactory.createMessageDao()) {
+        try (MessageDao dao = daoFactory.createMessageDao()) {
             return dao.findByUserId(userId);
         }
     }

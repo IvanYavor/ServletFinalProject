@@ -1,6 +1,6 @@
 package com.company.controller.command;
 
-import com.company.model.entity.User;
+import com.company.entity.User;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
